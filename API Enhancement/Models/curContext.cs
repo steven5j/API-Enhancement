@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace API_Enhancement.Models
 {
-    public partial class CURContext : DbContext
+    public partial class curContext : DbContext
     {
-        public CURContext()
+        public curContext()
         {
         }
 
-        public CURContext(DbContextOptions<CURContext> options)
+        public curContext(DbContextOptions<curContext> options)
             : base(options)
         {
         }
@@ -24,7 +24,7 @@ namespace API_Enhancement.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=CUR;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=cur;Integrated Security=True");
             }
         }
 
@@ -35,6 +35,8 @@ namespace API_Enhancement.Models
                 entity.HasKey(e => e.Pk);
 
                 entity.ToTable("cur");
+
+                entity.HasIndex(e => e.Pk, "IX_cur");
 
                 entity.Property(e => e.Pk)
                     .ValueGeneratedNever()
@@ -53,7 +55,7 @@ namespace API_Enhancement.Models
                     .HasColumnName("lineItem_UnblendedRate");
 
                 entity.Property(e => e.LineItemUsageAccountId)
-                    .HasMaxLength(4000)
+                    .HasMaxLength(50)
                     .HasColumnName("lineItem_UsageAccountId");
 
                 entity.Property(e => e.LineItemUsageAmount)
